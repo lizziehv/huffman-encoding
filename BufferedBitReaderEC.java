@@ -1,5 +1,3 @@
-import org.bytedeco.javacv.FrameFilter;
-
 import java.io.BufferedInputStream;
 import java.io.EOFException;
 import java.io.FileInputStream;

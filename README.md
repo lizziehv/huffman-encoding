@@ -1,5 +1,6 @@
 # Huffman encoding
-Java libraries for compressing and decompressing files and images by using bit reader and writers
+Java libraries for compressing and decompressing files and images using Huffman encoding and i/o streams for compressed data storage
 
-- To compress a file use `compress(fileName)`, to decompress use `decompress(fileName)`. Code for text files is in `HuffmanEncodingEC.java`
-- Code to decompress or compress an image is in `ImageCompression.java`
+<img src="image.gif" alt="" />
+
+*HuffmanEncodingEC* includes methods to decompress and compress files. To compress a file use `compress(fileName)`, to decompress use `decompress(fileName)`.

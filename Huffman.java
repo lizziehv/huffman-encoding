@@ -383,4 +383,5 @@ public class Huffman {
             System.err.println("Cannot close file.\n" + e.getMessage());
         }
     }
+
 }

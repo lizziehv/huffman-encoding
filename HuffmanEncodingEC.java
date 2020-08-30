@@ -461,8 +461,7 @@ public class HuffmanEncodingEC {
 
                         // used for debugging purposes,
                         // to see if decompression works
-                        if (debugFlag) {
-                            System.out.println("right");}
+                        if (debugFlag) { System.out.println("right"); }
                     }
                     // if bit is a 0, move left on the tree
                     else {
@@ -470,9 +469,7 @@ public class HuffmanEncodingEC {
 
                         // used for debugging purposes,
                         // to see if decompression works
-                        if (debugFlag) {
-                            System.out.println("left");
-                        }
+                        if (debugFlag) { System.out.println("left"); }
                     }
 
                     // check to see if we have found the character, now that we moved
@@ -482,34 +479,26 @@ public class HuffmanEncodingEC {
                         t = huffmanTree;
 
                         // used for debugging
-                        if (debugFlag) {
-                            System.out.println("found");
-                        }
+                        if (debugFlag) { System.out.println("found"); }
                     }
                 }
 
             }
 
         }
-        catch (IOException e) {
-            System.err.println("IO error while reading.\n" + e.getMessage());
-        }
+        catch (IOException e) { System.err.println("IO error while reading.\n" + e.getMessage()); }
 
         // Close the output file, if possible
-        try{
-            output.close();
-        }
-        catch (IOException e) {
-            System.err.println("Cannot close file.\n" + e.getMessage());
-        }
+        try{ output.close(); }
+        catch (IOException e) { System.err.println("Cannot close file.\n" + e.getMessage()); }
 
         // Close the input file, if possible
-        try {
-            input.close();
-        }
-        catch (IOException e) {
-            System.err.println("Cannot close file.\n" + e.getMessage());
-        }
+        try { input.close(); }
+        catch (IOException e) { System.err.println("Cannot close file.\n" + e.getMessage()); }
     }
-    
+
+    public static void main(String[] args) {
+        compress("inputs/example.txt");
+        decompress("inputs/example_compressedEC.txt");
+    }
 }

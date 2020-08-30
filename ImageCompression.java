@@ -352,7 +352,7 @@ public class ImageCompression extends DrawingGUI{
      * Method used to decompress a file, writes decompressed bits to output file
      * @param fileName file to be decompressed
      */
-    public static void decompress(String fileName){
+    public static void decompress(String fileName) {
         // retrieve binary tree with characters as leaves
         BinaryTree<ImageNodeData> huffmanTree;
 
@@ -360,13 +360,12 @@ public class ImageCompression extends DrawingGUI{
         BufferedBitReaderEC input;
 
         // where to send decompressed file
-        String decompressedPathName = fileName.substring(0, fileName.length()-17) + "_decompressedEC.png";
+        String decompressedPathName = fileName.substring(0, fileName.length() - 17) + "_decompressedEC.png";
 
         // Open the input file, if possible, else stop process
         try {
             input = new BufferedBitReaderEC(fileName);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("IO error while reading.\n" + e.getMessage());
             return;
         }
@@ -377,7 +376,7 @@ public class ImageCompression extends DrawingGUI{
             String imageDimensions = "";
             char c = input.readCharacter();
 
-            while(!String.valueOf(c).equals(delimiter1)){
+            while (!String.valueOf(c).equals(delimiter1)) {
                 imageDimensions += c;
                 c = input.readCharacter();
             }
@@ -390,7 +389,7 @@ public class ImageCompression extends DrawingGUI{
             // retrieve tree used to compare
             String treeString = "";
             char current = input.readCharacter();
-            while(current != endOfTreeIndicator){
+            while (current != endOfTreeIndicator) {
 
                 treeString += current;
                 current = input.readCharacter();
@@ -401,18 +400,19 @@ public class ImageCompression extends DrawingGUI{
             BinaryTree<ImageNodeData> t = huffmanTree;
             int x = 0;          // pixel x coordinate
             int y = 0;          // pixel y coordinate
-            while(input.hasNext()) {
+            while (input.hasNext()) {
                 boolean bit = input.readBit();                     // read bit
                 // have not yet gotten to the end of the character code
-                if(!t.isLeaf()){
+                if (!t.isLeaf()) {
                     // if bit is a 1, move right on the tree
-                    if(bit){
+                    if (bit) {
                         t = t.getRight();
 
                         // used for debugging purposes,
                         // to see if decompression works
                         if (debugFlag) {
-                            System.out.println("right");}
+                            System.out.println("right");
+                        }
                     }
                     // if bit is a 0, move left on the tree
                     else {
@@ -426,7 +426,7 @@ public class ImageCompression extends DrawingGUI{
                     }
 
                     // check to see if we have found the character, now that we moved
-                    if(t.isLeaf()) {
+                    if (t.isLeaf()) {
                         // write to decompressed file and restart current tree node for next search
                         result.setRGB(x, y, t.getData().getColor());
                         t = huffmanTree;
@@ -439,7 +439,7 @@ public class ImageCompression extends DrawingGUI{
                         }
                     }
                     // end of image row: restart x value, move in y
-                    if(x == Integer.parseInt(dimensions[0])){
+                    if (x == Integer.parseInt(dimensions[0])) {
                         x = 0;
                         y += 1;
                     }
@@ -447,8 +447,7 @@ public class ImageCompression extends DrawingGUI{
                 }
 
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("IO error while reading.\n" + e.getMessage());
             return;
         }
@@ -456,24 +455,18 @@ public class ImageCompression extends DrawingGUI{
         // Close the input file, if possible
         try {
             input.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println("Cannot close file.\n" + e.getMessage());
         }
 
         try {
             ImageIO.write(result, "png", new File(decompressedPathName));
-            System.out.println("Saved decompress image in "+decompressedPathName);
-        }
-        catch (Exception e) {
-            System.err.println("Couldn't save snapshot in `"+decompressedPathName+"' -- make sure the folder exists");
+            System.out.println("Saved decompress image in " + decompressedPathName);
+        } catch (Exception e) {
+            System.err.println("Couldn't save snapshot in `" + decompressedPathName + "' -- make sure the folder exists");
         }
 
 
     }
 
-    public static void main(String[] args) {
-        compress("inputs/yellowImage.png");
-        decompress("inputs/yellowImage_compressedEC.txt");
-    }
 }
